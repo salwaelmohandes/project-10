@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
-import Header from './Header';
-
 
 export default class UserSignIn extends Component {
   state = {
@@ -20,7 +18,6 @@ export default class UserSignIn extends Component {
 
     return (
       <div className="bounds">
-        <Header />
         <div className="grid-33 centered signin">
           <h1>Sign In</h1>
           <Form 
@@ -74,7 +71,7 @@ export default class UserSignIn extends Component {
     .then( user => {
       if (user === null) {
         this.setState(() => {
-          return { errors: [ 'Sign-in was unsuccessful' ] };
+          return { errors: [ {message: "Sign-in was unsuccessful"} ] };
         });
        } else {
           // this.props.history.push('/authenticated');
@@ -82,8 +79,8 @@ export default class UserSignIn extends Component {
           console.log(`SUCCESS! ${emailAddress} is now signed in!`);
        }
     })
-    .catch( err => {
-      console.log(err);
+    .catch( error => {
+      console.log(error);
       this.props.history.push('/error');
     })
   }

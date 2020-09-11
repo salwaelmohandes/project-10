@@ -25,7 +25,7 @@ export default class Courses extends Component {
   render() {
     const courses = this.state.courses.map( (course) => (        
       <div className="grid-33" key={course.id}>
-        <Link className="course--module course--link" id={course.id} to={"/courses/" + course.id}>
+        <Link className="course--module course--link" id={course.id} to={`/courses/${course.id}`}>
           <h4 className="course-label">Course</h4>
           <h3 className="course-title">{course.title}</h3>
         </Link>

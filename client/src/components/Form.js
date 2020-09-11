@@ -5,7 +5,7 @@ export default (props) => {
     cancel,
     errors,
     submit,
-    // submitbuttontext,
+    submitButtonText,
     elements,
   } = props;
 
@@ -25,7 +25,7 @@ export default (props) => {
       <form onSubmit={handleSubmit}>
         {elements()}
         <div className="grid-100 pad-bottom">
-          <button className="button" type="submit">Submit</button>
+          <button className="button" type="submit">{submitButtonText}</button>
           <button className="button button-secondary" onClick={handleCancel}>Cancel</button>
         </div>
       </form>
@@ -34,7 +34,7 @@ export default (props) => {
 }
 
 function ErrorsDisplay({ errors }) {
-  let errorsDisplay = null;
+  let errorsDisplay = [];
 
   if (errors.length) {
     errorsDisplay = (

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
-import Header from './Header';
-// import Data from '../Data';
+
 
 export default class UserSignUp extends Component {
   state = {
@@ -24,7 +23,6 @@ export default class UserSignUp extends Component {
 
     return (
       <div className="bounds">
-        <Header />
         <div className="grid-33 centered signin">
           <h1>Sign Up</h1>
           <Form 
@@ -111,8 +109,8 @@ export default class UserSignUp extends Component {
               this.props.history.push('/courses');
           });
         }   
-      }).catch((err) => { // handle rejected promises
-        console.log(err);
+      }).catch((error) => { // handle rejected promises
+        // console.log(error);
         this.props.history.push('/error'); // push to history stack
     });  
   }

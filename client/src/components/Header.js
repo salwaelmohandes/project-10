@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default (props) => {
-// export default (props)=> {
 // export default class Header extends React.PureComponent {
 // render() {
   const { context } = props;
