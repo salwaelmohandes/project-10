@@ -26,7 +26,6 @@ export default class CreateCourse extends Component {
     };
     render() {
         const { errors } = this.state;
-        console.log(this.state);
 
         return (                  
             <div className= "bounds"> 
@@ -107,8 +106,9 @@ export default class CreateCourse extends Component {
 
     change = (e) => {
         const name = e.target.name
+        const value = e.target.value
         this.setState({
-           [name] : e.target.value  
+           [name] : value  
         })
     }
 
@@ -119,8 +119,9 @@ export default class CreateCourse extends Component {
             const emailAddress  = context.authenticatedUser.emailAddress;
             const password = context.authenticatedUser.password;
 
-            context.data.createCourse( course, emailAddress, password ).then((errors) => {
-            if (errors) {
+            context.data.createCourse(emailAddress, password, course ).then((errors) => {
+                console.log(errors)
+            if (errors.length) {
               this.setState({ errors });
             }else {
                 console.log("course created")

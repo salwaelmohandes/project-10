@@ -48,7 +48,6 @@ export default class CourseDetail extends React.Component {
     const {context} = this.props;
     const {authenticatedUser} = context;
 
-
     console.log(this.state);
      
     return ( 
@@ -60,7 +59,7 @@ export default class CourseDetail extends React.Component {
                   authenticatedUser.emailAddress === user.emailAddress ? (                                
                     <React.Fragment>
                       <Link className="button" to={`/courses/${courseDetails.id}/update`}>Update Course</Link>
-                      <Link className="button" to="#">Delete Course</Link>                            
+                      <Link className="button" to={`/courses/${courseDetails.id}/delete`}>Delete Course</Link>                            
                     </React.Fragment>
                   ) :  <hr />
                 ) : <hr/> }

@@ -54,16 +54,18 @@ export default class UpdateCourse extends Component {
         estimatedTime,
         materialsNeeded,
         // userId,
-        errors } = this.state;
+        errors 
+        } = this.state;
 
-        const {context} = this.props;
-        const {authenticatedUser} = context;
+        // const {context} = this.props;
+        // const {authenticatedUser} = context;
 
         return (                  
             <div className= "bounds course--details"> 
                 <h1>Update Course</h1> 
                 <div>
-                    <Form cancel={this.cancel}
+                    <Form 
+                        cancel={this.cancel}
                         errors={errors}
                         submit={this.update}
                         submitButtonText="Update Course"
@@ -89,7 +91,7 @@ export default class UpdateCourse extends Component {
                                             <textarea 
                                                 id="description" 
                                                 name="description" 
-                                                type="text"                               
+                                                className=""                               
                                                 onChange={this.change} 
                                                 placeholder="Course description"
                                                 value={description}>
@@ -98,9 +100,9 @@ export default class UpdateCourse extends Component {
                                     </div>
                                 </div>
                                 <div className="grid-25 grid-right">
-                                    <div className="course--stats">
-                                        <ul className="course--stats--list">
-                                            <li className="course--stats--list--item">
+                                    <div className="course--stats" >
+                                        <ul className="course--stats--list" >
+                                            <li className="course--stats--list--item" >
                                                 <h4>Estimated Time</h4>
                                                 <div>
                                                     <input 
@@ -114,7 +116,7 @@ export default class UpdateCourse extends Component {
                                                     />
                                                 </div>
                                             </li>
-                                            <li className="course--stats--list--item">
+                                            <li className="course--stats--list--item" >
                                             <h4>Materials Needed</h4>
                                             <div>
                                                 <textarea 
@@ -129,8 +131,8 @@ export default class UpdateCourse extends Component {
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                        </React.Fragment>                    
+                            </div>                                                               
+                            </React.Fragment> 
                         )}
                     />
                 </div>                
@@ -146,15 +148,16 @@ export default class UpdateCourse extends Component {
 
     update = (e) => {
             const { context } = this.props;
-            const { courseId, title, description, estimatedTime, materialNeeded } = this.state;
-            const updatedCourse = { title, description, estimatedTime, materialNeeded };
+            const { courseId, title, description, estimatedTime, materialsNeeded } = this.state;
+            const updatedCourse = { title, description, estimatedTime, materialsNeeded };
             const emailAddress  = context.authenticatedUser.emailAddress;
             const password = context.authenticatedUser.password;
 
         context.data.updateCourse( courseId, updatedCourse, emailAddress, password ).then((errors) => {
             if (errors.length) {
               this.setState({ errors });
-            }else {
+              console.log(this.state);
+            } else {
                 const id= this.state.courseId;
                 this.props.history.push(`/courses/${id}`);
                 }

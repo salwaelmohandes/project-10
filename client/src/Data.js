@@ -77,10 +77,11 @@ export default class Data {
 
   async createCourse(emailAddress, password, course){
     const response = await this.api('/courses', 'POST', course, true, {emailAddress,password});
-    if (response.status === 201) {
+    if (response.status === 201 ||response.status === 200 ) {
       return [];
     }
     else if (response.status === 400) {
+      console.log("400 error sent from api call");
       return response.json().then(data => {
         return data.errors;
       });
@@ -95,7 +96,7 @@ export default class Data {
     console.log("get course details");
     const response = await this.api(`/courses/${id}`, "GET");
     console.log(response);
-    if (response.status === 200) {
+    if (response.status === 200 ||response.status === 201 ) {
       const course = await response.json().then((data) => data);
       console.log(course);
       return course;
@@ -112,9 +113,9 @@ export default class Data {
     console.log("update course details");
     const response = await this.api(`/courses/${id}`, "PUT", course, true, {emailAddress,password});
     console.log(response);
-    if (response.status === 200) {
-      const course = await response.json().then((data) => data);
-      console.log(course);
+    if (response.status === 200 || response.status === 201 ) {
+      // const course = await response.json().then((data) => data);
+      // console.log(course);
       return [];
     } else if (response.status === 400) {
       return response.json().then((data) => {
@@ -129,9 +130,9 @@ export default class Data {
     console.log("delete course details");
     const response = await this.api(`/courses/${id}`, "DELETE", null, true, {emailAddress,password});
     console.log(response);
-    if (response.status === 200) {
-      const course = await response.json().then((data) => data);
-      console.log(course);
+    if (response.status === 200  ) {
+      // const course = await response.json().then((data) => data);
+      // console.log(course);
       return [];
     } else if (response.status === 400) {
       return response.json().then((data) => {
