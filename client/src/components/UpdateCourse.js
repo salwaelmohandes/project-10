@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import Form from "./Form";
 
+
+// Create a component renders a form allowing a user to update one of their existing courses,
+// by sending a put request to the REST API's /api/courses/:id route.
+
 export default class UpdateCourse extends Component {
-    
+
     state = {
         courseId:"",
         title:"",
@@ -45,6 +49,7 @@ export default class UpdateCourse extends Component {
             this.props.history.push("/error");
         });
     };
+
     render() {
         const { 
         title,
@@ -53,12 +58,8 @@ export default class UpdateCourse extends Component {
         description,
         estimatedTime,
         materialsNeeded,
-        // userId,
         errors 
         } = this.state;
-
-        // const {context} = this.props;
-        // const {authenticatedUser} = context;
 
         return (                  
             <div className= "bounds course--details"> 
@@ -117,21 +118,21 @@ export default class UpdateCourse extends Component {
                                                 </div>
                                             </li>
                                             <li className="course--stats--list--item" >
-                                            <h4>Materials Needed</h4>
-                                            <div>
-                                                <textarea 
-                                                    id="materialsNeeded" 
-                                                    name="materialsNeeded" 
-                                                    className="" 
-                                                    onChange={this.change} 
-                                                    placeholder="List materials..."
-                                                    value={materialsNeeded}>
-                                                </textarea>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>                                                               
+                                                <h4>Materials Needed</h4>
+                                                <div>
+                                                    <textarea 
+                                                        id="materialsNeeded" 
+                                                        name="materialsNeeded" 
+                                                        className="" 
+                                                        onChange={this.change} 
+                                                        placeholder="List materials..."
+                                                        value={materialsNeeded}>
+                                                    </textarea>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>                                                               
                             </React.Fragment> 
                         )}
                     />
@@ -139,6 +140,7 @@ export default class UpdateCourse extends Component {
             </div>        
         )
     }
+
     change = e => {
         const name = e.target.name
         this.setState({
@@ -146,12 +148,15 @@ export default class UpdateCourse extends Component {
         })
     }
 
+    // Updating the course by clicking the button and also Modify the "Update Course" screen 
+    // to display validation errors returned from the REST API.
+
     update = (e) => {
-            const { context } = this.props;
-            const { courseId, title, description, estimatedTime, materialsNeeded } = this.state;
-            const updatedCourse = { title, description, estimatedTime, materialsNeeded };
-            const emailAddress  = context.authenticatedUser.emailAddress;
-            const password = context.authenticatedUser.password;
+        const { context } = this.props;
+        const { courseId, title, description, estimatedTime, materialsNeeded } = this.state;
+        const updatedCourse = { title, description, estimatedTime, materialsNeeded };
+        const emailAddress  = context.authenticatedUser.emailAddress;
+        const password = context.authenticatedUser.password;
 
         context.data.updateCourse( courseId, updatedCourse, emailAddress, password ).then((errors) => {
             if (errors.length) {
@@ -166,6 +171,8 @@ export default class UpdateCourse extends Component {
             this.props.history.push("/error");
         });
     }
+
+    // This "Cancel" button returns the user to the "Course Detail" screen not to the default route.
 
     cancel = (e) => {
         const id= this.state.courseId;

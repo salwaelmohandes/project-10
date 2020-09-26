@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
+
+// Create a component renders a form allowing the user to sign using their existing account information.
+// using the emailAddress and password parameter values to authenticate the user and make a request to the REST API's /users.
+
 export default class UserSignIn extends Component {
   state = {
     emailAddress: '',
@@ -37,7 +41,7 @@ export default class UserSignIn extends Component {
                 <input 
                   id="password" 
                   name="password"
-                  type="password"
+                  type="current-password"
                   value={password} 
                   onChange={this.change} 
                   placeholder="Password" />                      
@@ -71,10 +75,9 @@ export default class UserSignIn extends Component {
     .then( user => {
       if (user === null) {
         this.setState(() => {
-          return { errors: [ {message: "Sign-in was unsuccessful"} ] };
+          return { errors: [ "Sign-in was unsuccessful" ] };
         });
        } else {
-          // this.props.history.push('/authenticated');
           this.props.history.push(from);
           console.log(`SUCCESS! ${emailAddress} is now signed in!`);
        }

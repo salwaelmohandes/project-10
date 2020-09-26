@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-export default class Courses extends Component {
-    
+
+// Create a statful component retrieves list of courses from the REST API.
+export default class Courses extends Component {    
   state = {
     courses:[]
   };
@@ -19,9 +20,9 @@ export default class Courses extends Component {
       console.log(error);
       this.props.history.push("/error");
     });
-
   }
 
+  //Render a list of courses and link each course to its "Course Detail" screen. 
   render() {
     const courses = this.state.courses.map( (course) => (        
       <div className="grid-33" key={course.id}>
@@ -31,12 +32,14 @@ export default class Courses extends Component {
         </Link>
       </div>
     ));
+
     return (            
       <div className="bounds">
         <h1>Welcome to the Main Page</h1>
         {courses}
+
+        {/* Render a link to the "Create Course" screen.  */}
         <div className="grid-33">
-          {/* <button className="course-title" href="/courses/:id">Course</button> */}
           <Link className="course--module course--add--module"  to="/courses/create" >                    
             <h3 className="course--add--title" >+ New Course</h3>
           </Link>

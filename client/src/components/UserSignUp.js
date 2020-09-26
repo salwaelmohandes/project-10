@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
+// Create a component renders a form allowing a user to sign up by creating a new account.
 
 export default class UserSignUp extends Component {
   state = {
@@ -9,6 +10,7 @@ export default class UserSignUp extends Component {
     lastName: '',
     emailAddress: '',
     password: '',
+    confirmPassword: '',
     errors: [],
   }
 
@@ -18,6 +20,7 @@ export default class UserSignUp extends Component {
       lastName,
       emailAddress,
       password,
+      confirmPassword,
       errors,
     } = this.state;
 
@@ -56,12 +59,20 @@ export default class UserSignUp extends Component {
                 <input 
                   id="password" 
                   name="password"
-                  type="password"
+                  type="current-password"
                   value={password} 
                   onChange={this.change} 
                   placeholder="Password" />
+                <input 
+                  id="confirmPassword" 
+                  name="confirmPassword"
+                  type="new-password"
+                  value={confirmPassword} 
+                  onChange={this.change} 
+                  placeholder="Confirm Password" />
                </React.Fragment>
-            )} />
+              )}
+            />
           <p>Already have a user account? <Link to="/signin">Click here</Link> to sign in!</p>
         </div>
       </div>
@@ -79,6 +90,9 @@ export default class UserSignUp extends Component {
     });
   }
 
+  // Clicking a "Sign Up" button sends a POST request to the REST API's /api/users route and creating the user.
+  // And update the "Sign Up" screen to display validation errors returned from the REST API.
+  
   submit = () => {
     const { context } = this.props;
 
@@ -87,6 +101,7 @@ export default class UserSignUp extends Component {
       lastName,
       emailAddress,
       password,
+      confirmPassword,
     } = this.state; 
 
     // New user payload
@@ -95,10 +110,13 @@ export default class UserSignUp extends Component {
       lastName,
       emailAddress,
       password,
+      confirmPassword,
     };
-
-    console.log(this.state);
-    console.log(this.props);
+    if (password !== confirmPassword) {
+      this.setState({
+        errors: ["Sorry, Confirm password should match password"],
+      });
+    } else {
     context.data.createUser(user)
       .then( errors => {
         if (errors.length) {
@@ -110,11 +128,12 @@ export default class UserSignUp extends Component {
           });
         }   
       }).catch((error) => { // handle rejected promises
-        // console.log(error);
+        console.log(error);
         this.props.history.push('/error'); // push to history stack
-    });  
+      });  
+    }
   }
-
+  // "Cancel" button that returns the user to the default route.
   cancel = () => {
     this.props.history.push('/');
   }

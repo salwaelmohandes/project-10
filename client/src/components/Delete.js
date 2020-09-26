@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 export default class DeleteCourse extends Component {
     state= {
         course: {},
@@ -32,14 +33,14 @@ export default class DeleteCourse extends Component {
         const { course } = this.state;
 
         return (
-            <form>                             
+            <React.Fragment>                             
                 <div className= "bounds course--delete">
                     <h1>Delete Course</h1> 
                     <h3>Are you sure you want to delete this course: {course.title}?</h3>
                     <button className="button" type="submit" onClick={this.delete} >Delete Course</button>
                     <button className="button" type="cancel" onClick={this.cancel}>Cancel</button>
                 </div>
-            </form>             
+            </React.Fragment>              
         )
     }
 
@@ -49,14 +50,13 @@ export default class DeleteCourse extends Component {
        
         context.data.deleteCourse( course.id, emailAddress, password ).then((errors) => {
         if (errors.length) {
-        //   this.setState({ errors });
         console.log(errors);
         }else {
-            this.props.history.push("/courses");
+            this.props.history.push("/");
             }
         }).catch( (error) => {
         console.log(error);
-        this.props.history.push("/courses");
+        this.props.history.push("/");
         });
     }
 

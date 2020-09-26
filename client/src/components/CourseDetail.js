@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+
+// Import and use the <ReactMarkdown> component to render the course description 
+// and materialsNeeded properties as markdown formatted text.
 import ReactMarkdown from "react-markdown";
 
+
+// Create a component retrieves the detail for a course from the REST API.
 export default class CourseDetail extends React.Component {
   state = {
     courseDetails: {},
@@ -42,19 +47,21 @@ export default class CourseDetail extends React.Component {
     const {
       courseDetails,
       user,
-      materialsNeeded,
     } = this.state;
 
     const {context} = this.props;
     const {authenticatedUser} = context;
-
-    console.log(this.state);
      
     return ( 
       <div>          
         <div className="action--bar">
           <div className="bounds">
             <div className="grid-100">
+
+            {/* Add an "Update Course" button for navigating to the "Update Course" screen,
+                and a "Delete Course" button that when clicked sends a DELETE request to the REST API to delete a course.
+                Only if the user is the owner of the course. */}
+
               <span>{authenticatedUser ? (
                   authenticatedUser.emailAddress === user.emailAddress ? (                                
                     <React.Fragment>
@@ -78,22 +85,21 @@ export default class CourseDetail extends React.Component {
             <div className="course--description">
               <ReactMarkdown>{courseDetails.description}</ReactMarkdown>
             </div>
-            <div className="grid-25 grid-right">
-              <div className="course--stats">
-                <ul className="course--stats--list">
-                  <li className="course--stats--list--item">
-                    <h4>Estimated Time</h4> 
-                    <h3>{courseDetails.estimatedTime}</h3>
-                  </li> 
-                  {/* <div className="course--materialsNeeded"> */}
-                    <li className="course--stats--list--item">                              
-                      <h4>Materials Needed</h4>
-                      <ul>{materialsNeeded.map((material) => (<li key={material}>{material}</li>))}</ul> 
-                      <ReactMarkdown>{courseDetails.materialsNeeded}</ReactMarkdown>
-                    </li>
-                  {/* </div> */}
-                </ul>
-              </div>
+          </div>
+          <div className="grid-25 grid-right">
+            <div className="course--stats">
+              <ul className="course--stats--list">
+                <li className="course--stats--list--item">
+                  <h4>Estimated Time</h4> 
+                  <h3>{courseDetails.estimatedTime}</h3>
+                </li> 
+                <div className="course--materialsNeeded">
+                  <li className="course--stats--list--item">                              
+                    <h4>Materials Needed</h4>
+                    <ReactMarkdown>{courseDetails.materialsNeeded}</ReactMarkdown>
+                  </li>
+                </div>
+              </ul>
             </div>
           </div>
         </div>
